@@ -52,7 +52,7 @@ class AccountController extends Controller
 
         Account::create($account);
 
-        return redirect(route('/accounts'));
+        return redirect('/accounts');
     }
 
     /**

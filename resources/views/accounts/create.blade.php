@@ -17,12 +17,14 @@
         {{--                </div>--}}
         {{--            </div>--}}
         {{--        </div>--}}
-        <div class="py-12">
+        <div class="py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Currency code -->
         <div>
             <x-input-label for="currency_code" :value="__('Currency Code')"/>
-            <x-text-input id="currency_code" class="block mt-1 w-full" type="text" name="currency_code"
-                          :value="old('currency_code')" required autofocus autocomplete="first_name"/>
+            <select id="currency_code" name="currency_code" required  class="rounded-md">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+            </select>
             <x-input-error :messages="$errors->get('first_name')" class="mt-2"/>
         </div>
 
@@ -33,11 +35,10 @@
         {{--        <x-input-error :messages="$errors->get('last_name')" class="mt-2" />--}}
         {{--    </div>--}}
         <!-- Account Type -->
-        <div>
-            <label for="type">Account Type:</label>
-            <select id="type" name="type" required>
+        <div class="py-6">
+            <x-input-label for="type" :value="__('Account Type')"/>
+            <select id="type" name="type" required  class="rounded-md">
                 <option value="checking">Checking</option>
-                <option value="saving">Saving</option>
             </select>
         </div>
         {{--    <button type="submit">Create Account</button>--}}
