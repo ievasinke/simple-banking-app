@@ -23,9 +23,11 @@
             <x-input-label for="currency_code" :value="__('Currency Code')"/>
             <select id="currency_code" name="currency_code" required  class="rounded-md">
                 <option value="EUR">EUR</option>
-                <option value="USD">USD</option>
+                @foreach($currencies as $currency)
+                    <option value="{{ $currency }}">{{ $currency }}</option>
+                @endforeach
             </select>
-            <x-input-error :messages="$errors->get('first_name')" class="mt-2"/>
+            <x-input-error :messages="$errors->get('currency_code')" class="mt-2"/>
         </div>
 
         <!-- Last Name -->

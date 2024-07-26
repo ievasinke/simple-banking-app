@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -17,7 +18,9 @@ class AccountController extends Controller
     {
         return view(
             'accounts.index',
-            ['accounts' => Account::where('user_id', Auth::id())->get()]
+            [
+                'accounts' => Account::where('user_id', Auth::id())->get()
+            ]
         );
     }
 
@@ -26,7 +29,13 @@ class AccountController extends Controller
      */
     public function create(): View
     {
-        return view('accounts.create');
+        $currencies = TransactionController::fetchDataFromApi()->keys();
+        return view(
+            'accounts.create',
+            [
+                'currencies' => $currencies
+            ]
+        );
     }
 
     /**
@@ -34,10 +43,24 @@ class AccountController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        if (!$request->currency_code) {
+            return back()->withErrors(['currency_code' => 'Currency code not found']);
+        }
+        if (!$request->type) {
+            return back()->withErrors(['type' => 'Account type not found']);
+        }
+
+        $validator = Validator::make($request->all(), [
             'currency_code' => ['required', 'string', 'size:3'],
-            'type' => ['required', 'in:checking,saving']
+            'type' => ['required', 'in:checking,saving,investment']
         ]);
+
+        if ($validator->fails()) {
+            return redirect('/accounts/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         do {
             $accountNumber = '44AA' . rand(10000000, 99999999);
         } while (Account::where('number', $accountNumber)->exists());
@@ -52,7 +75,7 @@ class AccountController extends Controller
 
         Account::create($account);
 
-        return redirect('/accounts');
+        return redirect('/accounts')->with('success', 'Account created successfully.');
     }
 
     /**

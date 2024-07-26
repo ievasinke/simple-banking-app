@@ -1,4 +1,7 @@
 <x-app-layout>
+    @if (session('success'))
+        <x-success :messages="session('success')" class="mt-2 px-4" />
+    @endif
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -9,16 +12,30 @@
             </a>
         </div>
     </x-slot>
-    <div class="space-y-6 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+
+    <x-table>
+        <x-slot name="headers">
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Account number</th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Currency code</th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Balance</th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Account Type</th>
+        </x-slot>
+
         @foreach($accounts as $account)
-            <a href="/accounts/{{ $account['id'] }}" class="block px-4 py-6 border border-grey-200 rounded-lg ">
-                <div class="font-bold text-blue-500 text-sm">
-                    {{ $account->number }}
-                </div>
-                <div>
-                    <strong>{{ $account['currency_code'] }}</strong> {{ $account['balance'] }}
-                </div>
-            </a>
+            <tr>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <a href="/accounts/{{ $account['id'] }}">
+                        <div class="text-sm leading-5 text-gray-900">
+                            {{ $account->number }}
+                        </div>
+                    </a>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{ $account['currency_code'] }}</span>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{ number_format($account['balance'], 2) }}</td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{ $account['type'] }}</td>
+            </tr>
         @endforeach
-    </div>
+    </x-table>
 </x-app-layout>
