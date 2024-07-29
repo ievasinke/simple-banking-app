@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
@@ -122,14 +122,13 @@ class TransactionController extends Controller
 
     public static function fetchDataFromApi(): Collection
     {
-        $response = Http::get('https://www.bank.lv/vk/ecb.xml');
-        $xml = simplexml_load_string($response->body());
+        $xml = Cache::get('exchange_rates', []);
         $currencies = collect();
 
-        foreach ($xml->Currencies->Currency as $currency) {
+        foreach ($xml['Currencies']['Currency'] as $currency) {
             $currencies->put(
-                (string)$currency->ID,
-                (float)$currency->Rate
+                (string)$currency['ID'],
+                (float)$currency['Rate']
             );
         }
         return $currencies;
