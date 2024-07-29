@@ -29,7 +29,7 @@ class AccountController extends Controller
      */
     public function create(): View
     {
-        $currencies = TransactionController::fetchDataFromApi()->keys();
+        $currencies = TransactionController::getExchangeRates()->keys();
         return view(
             'accounts.create',
             [

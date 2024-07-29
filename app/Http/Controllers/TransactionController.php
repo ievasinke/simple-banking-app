@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\TransactionJob;
+//use App\Jobs\TransactionJob;
 use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Contracts\View\View;
@@ -11,11 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $accountNumbers = Account::where('user_id', Auth::id())->pluck('number');
         $transactions = Transaction::whereIn('sender', $accountNumbers)
@@ -72,7 +73,7 @@ class TransactionController extends Controller
         $receivedAmount = $request->amount;
 
 //        dd('👍');
-        $exchangeRates = self::fetchDataFromApi();
+        $exchangeRates = self::getExchangeRates();
         if ($receiverAccount->value('currency_code') !== $senderAccount->value('currency_code')) {
             if ($senderAccount->value('currency_code') === 'EUR') {
                 $rate = $exchangeRates->get($receiverAccount->value('currency_code'));
@@ -120,17 +121,21 @@ class TransactionController extends Controller
         );
     }
 
-    public static function fetchDataFromApi(): Collection
+    public static function getExchangeRates(): Collection
     {
-        $xml = Cache::get('exchange_rates', []);
-        $currencies = collect();
-
-        foreach ($xml['Currencies']['Currency'] as $currency) {
-            $currencies->put(
-                (string)$currency['ID'],
-                (float)$currency['Rate']
-            );
+        $currencies = Cache::get('exchange_rates', null);
+        if (!$currencies) {
+            $currencies = collect();
+            $response = Http::get('https://www.bank.lv/vk/ecb.xml');
+            $xml = simplexml_load_string($response->body());
+            foreach ($xml->Currencies->Currency as $currency) {
+                $currencies->put(
+                    (string)$currency->ID,
+                    (float)$currency->Rate
+                );
+            }
+            Cache::put('exchange_rates', $currencies->toArray(), now()->addMinutes(24*60*60));
         }
-        return $currencies;
+        return collect($currencies);
     }
 }
