@@ -17,10 +17,10 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'sender' => '44AA83821167',
-            'receiver' => '44AA39049412',
-            'amount' => $this->faker->numberBetween(50, 1000),
-            'currency_code' => 'USD'
+            'sender' => '44AA' . fake()->unique()->numberBetween(10000000, 99999999),
+            'receiver' => '44AA' . fake()->unique()->numberBetween(10000000, 99999999),
+            'amount' => fake()->numberBetween(1, 9),
+            'currency_code' => fake()->currencyCode()
         ];
     }
 }

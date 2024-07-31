@@ -17,7 +17,11 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => 1,
+            'currency_code' => fake()->currencyCode(),
+            'type' => fake()->randomElement(['checking', 'investment']),
+            'number' => '44AA' . fake()->numberBetween(10000000, 99999999),
+            'balance' => fake()->numberBetween(10, 999),
         ];
     }
 }
