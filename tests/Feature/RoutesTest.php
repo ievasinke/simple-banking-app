@@ -3,7 +3,7 @@
 use App\Models\Account;
 use App\Models\User;
 
-test('returns a successful response from the dashboard route if unauthorized', function () {
+test('redirects from the dashboard route if unauthorized', function () {
     $response = $this->get('/dashboard');
 
     $response->assertStatus(302);
