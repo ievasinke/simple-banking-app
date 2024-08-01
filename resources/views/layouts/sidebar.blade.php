@@ -13,7 +13,7 @@
         <span class="mx-3">Dashboard</span>
     </a>
 
-    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-100 hover:bg-opacity-25 hover:text-gray-100"
        href="/transactions">
         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 546 610" stroke="currentColor">
             <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -24,7 +24,7 @@
         <span class="mx-3">Transactions</span>
     </a>
 
-    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-100 hover:bg-opacity-25 hover:text-gray-100"
        href="/transactions/create">
         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 546 610" stroke="currentColor">
             <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -35,7 +35,7 @@
         <span class="mx-3">Payments</span>
     </a>
 
-    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-100 hover:bg-opacity-25 hover:text-gray-100"
        href="/currencies">
         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 610 610" stroke="currentColor">
             <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -46,7 +46,7 @@
         <span class="mx-3">Investments</span>
     </a>
 
-    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-100 hover:bg-opacity-25 hover:text-gray-100"
        href="/accounts">
         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 610 610" stroke="currentColor">
             <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
