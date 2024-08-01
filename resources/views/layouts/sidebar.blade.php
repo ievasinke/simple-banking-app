@@ -1,4 +1,8 @@
 <nav class="mt-10">
+    <a class="flex items-center justify-center  px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="/">
+        <x-application-logo class="block h-9 w-auto" />
+    </a>
+
     <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="/">
         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 610 546" stroke="currentColor">
             <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
