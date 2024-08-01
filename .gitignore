@@ -20,4 +20,4 @@ yarn-error.log
 /.vscode
 .DS_Store
 storage/.DS_Store
-
+/resources/css/classes.css

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Transaction;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -83,7 +84,14 @@ class AccountController extends Controller
      */
     public function show(Account $account): View
     {
-        return view('accounts.show', ['account' => $account]);
+        $transactions = Transaction::where( 'sender', $account->number)
+            ->orWhere('receiver', $account->number)
+            ->with(['senderAccount', 'receiverAccount'])
+            ->get();
+        return view('accounts.show', [
+            'account' => $account,
+            'transactions' => $transactions
+        ]);
     }
 
 //    /**

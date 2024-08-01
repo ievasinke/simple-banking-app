@@ -19,7 +19,7 @@ class Account extends Model
         'balance'
     ];
 
-    protected $hidden = [
+    protected $guarded = [
         'number',
         'balance',
     ];
@@ -38,6 +38,6 @@ class Account extends Model
             'number'
         )->orWhere(
             'receiver',
-            'number');
+            $this->number);
     }
 }
